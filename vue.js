@@ -1,64 +1,77 @@
 const app = new Vue({
-    
-    el : '#app',
-    
-	data : { 
+
+    el: '#app',
+
+    data: {
         titulo1: 'Filtro procesador placa y ram',
-		titulo2: 'Administrador',
-        id: '', 
-        name: '', 
+        titulo2: 'Administrador',
+        id: '',
+        name: '',
         type: '',
         compatibility: [],
-        supplier: [],
+        suppliers: [{
+            name: '',
+            price: ''
+        }],
         items: [],
         productSelect: '',
         total: 0,
-		colors: [],
-		selectedColor: '',
+        colors: [],
+        selectedColor: '',
         color: false,
         result: false
     },
-    
-	methods : {
 
-		agregar () {
+    methods: {
 
-			if ( this.id !== '' && this.name !== '' && this.compatibility !== '' && this.supplier !== '' && this.type !== '' ){
-
-				this.items.push( 
-                    { 
-                        id: this.id, 
-                        name : this.name, 
-                        compatibility : this.compatibility.split(','), 
-                        supplier: this.supplier, 
-                        type: this.type 
-                    } 
-                );     
-
-				this.id = '';  
-				this.name = ''; 
-				this.compatibility = []; 
-				this.supplier = [];  
-                this.type = ''; 
-                
-                this.localStorage();
-                
-            }
-            
+        agregarSupplier() {
+            this.suppliers.push({
+                name: '',
+                price: ''
+            });
         },
 
-        ver(e) { 
+        agregar() {
+
+            if (this.id !== '' && this.name !== '' && this.compatibility !== '' && this.suppliers !== '' && this.type !== '') {
+
+                this.items.push({
+                    id: this.id,
+                    name: this.name,
+                    compatibility: this.compatibility.split(','),
+                    suppliers: this.suppliers,
+                    type: this.type
+                });
+
+                this.id = '';
+                this.name = '';
+                this.compatibility = [];
+                this.suppliers = [{
+                    name: '',
+                    price: ''
+                }];
+                this.type = '';
+
+                this.localStorage();
+
+            }
+
+        },
+
+        ver(e) {
 
             let myProducts = JSON.parse(localStorage.getItem('db'));
 
             let prodId = e.currentTarget.getAttribute('data-id');
-             
-            myProducts = myProducts.filter( ({compatibility}) => {
 
-                return compatibility.includes(prodId); 
+            myProducts = myProducts.filter(({
+                compatibility
+            }) => {
+
+                return compatibility.includes(prodId);
 
             });
- 
+
             this.result = true;
 
             this.productSelect = myProducts.name;
@@ -68,53 +81,53 @@ const app = new Vue({
             console.log(this.productSelect);
 
         },
-        
-		editar (index) {   
-			this.localStorage();	
-        }, 
-        
-		eliminar (index) {
+
+        editar(index) {
+            this.localStorage();
+        },
+
+        eliminar(index) {
 
             var dlt = confirm('sure?');
-            
-            if( dlt ){
-                this.items.splice( index, 1 );
+
+            if (dlt) {
+                this.items.splice(index, 1);
                 this.localStorage();
             }
 
         },
-        
-		localStorage () {
-            localStorage.setItem('db', JSON.stringify(this.items) );  
+
+        localStorage() {
+            localStorage.setItem('db', JSON.stringify(this.items));
         },
 
-        download () {
+        download() {
 
-            let myWindow = window.open(""); 
-            myWindow.document.write("<code>" + localStorage.getItem('db') + "</code>");   
+            let myWindow = window.open("");
+            myWindow.document.write("<code>" + localStorage.getItem('db') + "</code>");
         }
 
-    },  
+    },
 
-	mounted: function(){
+    mounted: function () {
 
-		let colors = ['pink','yellow','purple'];
-    	
-    	this.colors = Object.assign({}, this.colors, colors);
-    	this.selectedColor = this.colors[0];
-	
-	},
+        let colors = ['pink', 'yellow', 'purple'];
 
-	created : function() {
+        this.colors = Object.assign({}, this.colors, colors);
+        this.selectedColor = this.colors[0];
+
+    },
+
+    created: function () {
 
         let db = JSON.parse(localStorage.getItem('db'));
-        
-		if(db === null){
-			this.items = [];
-		}else{
-			this.items = db;
+
+        if (db === null) {
+            this.items = [];
+        } else {
+            this.items = db;
         }
-        
+
     }
-    
+
 });

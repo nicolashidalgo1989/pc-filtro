@@ -1,57 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
 </head>
-<body class="bg-light"> 
+
+<body class="bg-light">
     <div id="app" class="container mt-5">
 
         <h3 class="h2 font-weight-normal text-dark mt-5">{{ titulo2 }}</h3>
-        
-        <a href="index.html" class="btn btn-success my-4"> 
-            &lt; Volver a Index 
+
+        <a href="index.html" class="btn btn-success my-4">
+            &lt; Volver a Index
         </a>
- 
+
         <div class="row">
-           
-            <!--Formulario--> 
+
+            <!--Formulario-->
             <div class="col-md-6">
 
                 <form class="form mt-3">
-                
+
                     <div class="form-group">
-                        <input type="text" v-model="id" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa id">
+                        <input type="text" v-model="id" class="mr-3 form-control" @keyup.enter.prevent="agregar"
+                            placeholder="Ingresa id">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" v-model="name" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa nombre"> 
+                        <input type="text" v-model="name" class="mr-3 form-control" @keyup.enter.prevent="agregar"
+                            placeholder="Ingresa nombre">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" v-model="compatibility" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa compatibilidades">
-                        <small class="form-text text-muted ml-1"> Valores separados por comas (,)</small> 
+                        <input type="text" v-model="compatibility" class="mr-3 form-control"
+                            @keyup.enter.prevent="agregar" placeholder="Ingresa compatibilidades">
+                        <small class="form-text text-muted ml-1"> Valores separados por comas (,)</small>
                     </div>
 
                     <div class="form-group">
-                        <div class="form-inline"> 
+                        <div class="form-inline">
 
-                            <input type="text" v-model="supplier.name" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa proveedores">
+                            <div class="row">
 
-                            <input type="text" v-model="supplier.price" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa precios"> 
+                                <div class="col-md-10">
 
-                        </div> 
-                        <small class="form-text text-muted ml-1"> Valores separados por comas (,)</small> 
+                                    <div class="row">
+
+                                        <div class="col-md-12 mb-3" v-for="supplier in suppliers">
+                                            <input type="text" v-model="supplier.name" class="form-control"
+                                                @keyup.enter.prevent="agregar" placeholder="Ingresa proveedores">
+
+                                            <input type="text" v-model="supplier.price" class="form-control"
+                                                @keyup.enter.prevent="agregar" placeholder="Ingresa precios">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success" @click.prevent="agregarSupplier">Add</button>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
-                    
-                    <div class="form-group"> 
 
-                        <input type="text" v-model="type" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa tipo"> 
-                             
+                    <div class="form-group">
+
+                        <input type="text" v-model="type" class="mr-3 form-control" @keyup.enter.prevent="agregar"
+                            placeholder="Ingresa tipo">
+
                     </div>
 
                     <div class="form-group">
@@ -59,7 +85,7 @@
                         <button class="btn btn-success" @click.prevent="agregar">Add</button>
 
                     </div>
-        
+
                 </form>
 
             </div>
@@ -81,15 +107,15 @@
             <div class="col-md-12">
 
                 <div class="my-3">
-                    
-                    <div class="alert alert-primary" role="alert" v-for="(item, index) in items"> 
+
+                    <div class="alert alert-primary" role="alert" v-for="(item, index) in items">
                         <div class="d-flex justify-content-between text-left align-items-center">
-                            <p class="m-0 p-0">{{ item.id }}</p> 
-                            <p class="m-0 p-0">{{ item.name }}</p> 
+                            <p class="m-0 p-0">{{ item.id }}</p>
+                            <p class="m-0 p-0">{{ item.name }}</p>
                             <p class="m-0 p-0">{{ item.compatibility }}</p>
-                            <p class="m-0 p-0">{{ item.supplier }}</p>  
-                            <p class="m-0 p-0">{{ item.type }}</p>   
-                            <div>  
+                            <p class="m-0 p-0">{{ item.suppliers }}</p>
+                            <p class="m-0 p-0">{{ item.type }}</p>
+                            <div>
                                 <button class="btn btn-sm btn-danger" @click="eliminar(index)">X</button>
                             </div>
                         </div>
@@ -103,8 +129,9 @@
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="vue.js"></script>
 
 </body>
+
 </html>
