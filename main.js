@@ -53,7 +53,9 @@ document.addEventListener( 'DOMContentLoaded', function(){
     
                 <div class="col-12">
                     <div class="${db[i].color} rounded p-2 mb-4">
-                        <h4 class="text-dark font-weight-light h6 m-0">${db[i].name}</h4>   
+                        <h4 class="text-dark font-weight-light h6 m-0">
+                        ${db[i].name}
+                        </h4>   
                     </div> 
                 </div>   
     

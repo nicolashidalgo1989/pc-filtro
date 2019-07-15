@@ -11,10 +11,15 @@
     <link rel="stylesheet" href="main.css">
 </head>
 
-<body class="bg-light">
+<body class="bg-light pb-5">
+
     <div id="app" class="container mt-5">
 
-        <h3 class="h2 font-weight-normal text-dark mt-5">{{ titulo2 }}</h3>
+        <h3 class="h2 font-weight-normal text-dark mt-5"> 
+            
+            {{ titulo2 }}
+
+        </h3>
 
         <a href="index.html" class="btn btn-success my-4">
             &lt; Volver a Index
@@ -22,67 +27,79 @@
 
         <div class="row">
 
-            <!--Formulario-->
+            <!--Formulario--> 
             <div class="col-md-6">
 
                 <form class="form mt-3">
 
                     <div class="form-group">
-                        <input type="text" v-model="id" class="mr-3 form-control" @keyup.enter.prevent="agregar"
-                            placeholder="Ingresa id">
+                        
+                        <input type="text" v-model="id" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa id">
+
                     </div>
 
                     <div class="form-group">
-                        <input type="text" v-model="name" class="mr-3 form-control" @keyup.enter.prevent="agregar"
-                            placeholder="Ingresa nombre">
+
+                        <input type="text" v-model="name" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa nombre">
+
                     </div>
 
                     <div class="form-group">
-                        <input type="text" v-model="compatibility" class="mr-3 form-control"
-                            @keyup.enter.prevent="agregar" placeholder="Ingresa compatibilidades">
+
+                        <input type="text" v-model="type" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa tipo">
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" v-model="compatibility" class="mr-3 form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa compatibilidades">
                         <small class="form-text text-muted ml-1"> Valores separados por comas (,)</small>
                     </div>
+ 
+                    <div class="form-group">  
+                            
+                        <div class="row">
 
-                    <div class="form-group">
-                        <div class="form-inline">
+                            <div class="col-sm-8">
 
-                            <div class="row">
+                                <div class="form-inline" v-for="supplier in suppliers">
 
-                                <div class="col-md-10">
+                                    <div class="form-group">
+                                    
+                                        <input type="text" v-model="supplier.name" class="form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa proveedor"> 
 
-                                    <div class="row">
-
-                                        <div class="col-md-12 mb-3" v-for="supplier in suppliers">
-                                            <input type="text" v-model="supplier.name" class="form-control"
-                                                @keyup.enter.prevent="agregar" placeholder="Ingresa proveedores">
-
-                                            <input type="text" v-model="supplier.price" class="form-control"
-                                                @keyup.enter.prevent="agregar" placeholder="Ingresa precios">
-                                        </div>
-
+                                        <input type="text" v-model="supplier.price" class="form-control" @keyup.enter.prevent="agregar" placeholder="Ingresa precio">   
+                                    
                                     </div>
 
-                                </div>
+                                </div> 
 
-                                <div class="col-md-2">
-                                    <button class="btn btn-success" @click.prevent="agregarSupplier">Add</button>
-                                </div>
+                            </div> 
+                
+                            <div class="col-sm-4">
 
-                            </div>
+                                <button class="btn btn-primary" @click.prevent="agregarSupplier">
+                                    Agregar proveedor
+                                </button>    
 
-                        </div>
+                            </div>  
+                        
+                        </div>  
+
+                    </div>
+ 
+                    <div class="form-group">
+
+                        <select class="form-control">
+                            <option :value="color" v-for="color in colors">
+                                {{ color }} 
+                            </option>
+                        </select>
+
                     </div>
 
                     <div class="form-group">
 
-                        <input type="text" v-model="type" class="mr-3 form-control" @keyup.enter.prevent="agregar"
-                            placeholder="Ingresa tipo">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <button class="btn btn-success" @click.prevent="agregar">Add</button>
+                        <button class="btn btn-success" @click.prevent="agregar">Agregar producto</button>
 
                     </div>
 
@@ -91,7 +108,7 @@
             </div>
 
             <!--JSON-->
-            <div class="col-md-6">
+            <div class="col-md-6" v-if="items.length > 0">
 
                 <div class="jsonResult text-light p-3 bg-dark my-3 rounded">
                     <code>
@@ -103,27 +120,44 @@
 
             </div>
 
-            <!--Lista de productos cargados-->
-            <div class="col-md-12">
+            <!--Lista de productos cargados--> 
+            <div class="col-md-12" v-if="items.length > 0">
 
-                <div class="my-3">
+                <table class="table table-dark"> 
 
-                    <div class="alert alert-primary" role="alert" v-for="(item, index) in items">
-                        <div class="d-flex justify-content-between text-left align-items-center">
-                            <p class="m-0 p-0">{{ item.id }}</p>
-                            <p class="m-0 p-0">{{ item.name }}</p>
-                            <p class="m-0 p-0">{{ item.compatibility }}</p>
-                            <p class="m-0 p-0">{{ item.suppliers }}</p>
-                            <p class="m-0 p-0">{{ item.type }}</p>
-                            <div>
-                                <button class="btn btn-sm btn-danger" @click="eliminar(index)">X</button>
-                            </div>
-                        </div>
-                    </div>
+                    <tr>
+                        <th scope="col"> Id </th>
+                        <th scope="col"> Nombre </strong> </th>
+                        <th scope="col"> Compatibilidad </th>
+                        <th scope="col"> Proveedor </th>
+                        <th scope="col"> Precio </th>
+                        <th scope="col"> Tipo </th> 
+                        <th scope="col"> Editar </th> 
+                        <th scope="col"> X </th>  
+                    </tr> 
 
-                </div>
+                    <tr v-for="(item, index) in items"> 
+                        <th scope="row"> {{ item.id }} </th>
+                        <td> {{ item.name }} </td>
+                        <td> {{ item.compatibility[0] }} </td>
+                        <td> {{ item.suppliers }} </td>
+                        <td> {{ item.suppliers }} </td>
+                        <td> {{ item.type }} </td> 
+                        <td> 
+                            <button class="btn btn-sm btn-primary" @click.prevent="editar(index)" :data-id="item.id">Editar</button> 
+                        </td>
+                        <td> 
+                            <button class="btn btn-sm btn-danger " @click="eliminar(index)">X</button> 
+                        </td>
+                    </tr> 
 
-            </div>
+                </table>
+
+                <button class="btn btn-danger btn-sm" @click.prevent="eliminarTodo">
+                    Borrar Todo
+                </button> 
+
+            </div> 
 
         </div>
 

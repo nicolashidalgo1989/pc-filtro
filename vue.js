@@ -1,131 +1,169 @@
 const app = new Vue({
 
-    el: '#app',
+    el: "#app",
 
     data: {
-        titulo1: 'Filtro procesador placa y ram',
-        titulo2: 'Administrador',
-        id: '',
-        name: '',
-        type: '',
+
+        titulo1: "Filtro procesador placa y ram",
+        titulo2: "Administrador",
+
+        id: "",
+        name: "",
         compatibility: [],
         suppliers: [{
-            name: '',
-            price: ''
+            name: "",
+            price: ""
         }],
+        type: "",
+        colors: [ "aqua", "cyan", "purple", "green", "yellow", "sky", "orange", "pink" ],
+        color: '',
+
         items: [],
-        productSelect: '',
-        total: 0,
-        colors: [],
-        selectedColor: '',
-        color: false,
-        result: false
+        productSelect: "", 
+        result: false,
+        comp: [],
+        total: 0 
+
     },
 
     methods: {
 
         agregarSupplier() {
             this.suppliers.push({
-                name: '',
-                price: ''
+                name: "",
+                price: ""
             });
         },
 
         agregar() {
 
-            if (this.id !== '' && this.name !== '' && this.compatibility !== '' && this.suppliers !== '' && this.type !== '') {
+            if (this.id !== "" && this.name !== "" && this.compatibility !== "" && this.suppliers !== "" && this.type !== "") {
 
                 this.items.push({
                     id: this.id,
                     name: this.name,
-                    compatibility: this.compatibility.split(','),
+                    compatibility: this.compatibility.split(","),
                     suppliers: this.suppliers,
-                    type: this.type
+                    type: this.type,
+                    color: this.color
                 });
 
-                this.id = '';
-                this.name = '';
+                this.id = "";
+                this.name = "";
                 this.compatibility = [];
                 this.suppliers = [{
-                    name: '',
-                    price: ''
+                    name: "",
+                    price: ""
                 }];
-                this.type = '';
+                this.type = "";
+                this.color= ""
 
                 this.localStorage();
 
             }
 
+        }, 
+
+        add(){
+
+            console.log("agregado");
+
         },
 
-        ver(e) {
+        verCompatibilidad(e) { 
+             
+            //retornamos json desde localstorage
+            myProducts = JSON.parse(localStorage.getItem("db"));
+ 
+            //retornamos valor de atributo data-id del boton clickeado 
+            let prodId = e.currentTarget.getAttribute("data-id");
 
-            let myProducts = JSON.parse(localStorage.getItem('db'));
-
-            let prodId = e.currentTarget.getAttribute('data-id');
-
-            myProducts = myProducts.filter(({
+            //filtramos productos por su id compatible
+            myProducts = myProducts.filter(({ 
                 compatibility
             }) => {
 
                 return compatibility.includes(prodId);
 
             });
+ 
+            //mostramos nombre del producto clickeado
+            myName = e.currentTarget.parentElement.children[1].innerText; 
 
-            this.result = true;
+            //mostramos cuadro de compatibilidades
+            this.result = true; 
 
-            this.productSelect = myProducts.name;
+            //mostramos cuadro de compatibilidades
+            this.productSelect = myName;
+   
+            if(myProducts.length != 0){
 
-            myProducts = '';
+                this.comp.push( {
+                    id: myProducts[0].id,
+                    name: myProducts[0].name
+                });
 
-            console.log(this.productSelect);
+            } 
 
+            localStorage.setItem("comp", this.comp);
+
+            console.log(JSON.stringify(this.comp));
+             
         },
 
-        editar(index) {
-            this.localStorage();
+        editar(e) {
+             
+            console.log(e.currentTarget); 
         },
 
         eliminar(index) {
 
-            var dlt = confirm('sure?');
+            let dlt = confirm("sure?");
 
             if (dlt) {
+
                 this.items.splice(index, 1);
                 this.localStorage();
             }
 
         },
 
+        eliminarTodo(index) {
+
+            let dlt = confirm("sure?");
+
+            if (dlt) {  
+                localStorage.clear("db");
+                this.localStorage();
+            }
+
+        },
+ 
         localStorage() {
-            localStorage.setItem('db', JSON.stringify(this.items));
+            localStorage.setItem("db", JSON.stringify(this.items));
         },
 
         download() {
 
             let myWindow = window.open("");
-            myWindow.document.write("<code>" + localStorage.getItem('db') + "</code>");
+            myWindow.document.write("<code>" +  localStorage.getItem("db") + "</code>");
+
         }
 
-    },
-
-    mounted: function () {
-
-        let colors = ['pink', 'yellow', 'purple'];
-
-        this.colors = Object.assign({}, this.colors, colors);
-        this.selectedColor = this.colors[0];
-
-    },
+    },  
 
     created: function () {
 
-        let db = JSON.parse(localStorage.getItem('db'));
+        let db = JSON.parse(localStorage.getItem("db"));
 
         if (db === null) {
+
             this.items = [];
+
         } else {
+            
             this.items = db;
+
         }
 
     }

@@ -5,3 +5,5 @@
 .green { background-color: #c7e8ac; }
 .purple { background-color: #b391b5; } 
 .yellow { background-color: #ffeca9; }
+
+.jsonResult{max-height:277px;overflow:Scroll;}

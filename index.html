@@ -1,79 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Filtro procesador placa y ram</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="main.css">
-</head>
-<body class="bg-light"> 
 
-    <div class="container" id="app"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Filtro procesador placa y ram</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="main.css">
+    </head>
 
-        <h1 class="h2 font-weight-normal text-dark mt-5">
-            {{ titulo1 }}
-        </h1> 
+    <body class="bg-light pb-5"> 
 
-        <a href="admin.html" class="btn btn-success my-4"> Admin </a>
+        <div id="app" class="container"> 
 
-        <div class="row">
+            <h1 class="h2 font-weight-normal text-dark mt-5"> {{ titulo1 }} </h1> 
 
-            <!--Productos-->
-            <div class="col-md-8"> 
-                <h2 class="font-weight-normal text-dark mb-5">Productos</h2>  
-                <div class="row" id="products">
-                    <div class="col-sm-6" v-for="(item,index) in items">
-                        <div :class="[selectedColor, 'rounded', 'p-4', 'mb-4']">
-                            <small class="d-block text-uppercase mb-3 small">
-                                {{ item.type }}
-                            </small>   
-                            <h4 class="text-dark font-weight-light h5 mb-4">
-                                {{ item.name }}
-                                <small class="d-block font-weight-bold text-dark mt-1"> 
-                                    {{ item.id }} 
-                                </small>
-                            </h4>  
-                            <button class="btn btn-dark productItem" :data-id="item.id" @click.prevent="ver">
-                                Ver compatibilidad
-                            </button>
-                        </div> 
-                    </div> 
+            <a href="admin.html" class="btn btn-success my-4"> Admin </a>
+
+            <div class="row">
+
+                <!--Productos-->
+                <div class="col-md-8"> 
+
+                    <h2 class="font-weight-normal text-dark mb-3">Productos</h2> 
+
+                    <div class="row">
+
+                        <div class="col-sm-6" v-for="(item,index) in items">
+
+                            <div :class="item.color" class="rounded p-4 mb-4">
+                                
+                                <small class="d-block text-uppercase mb-3 small">
+                                    {{ item.type }}
+                                </small>   
+
+                                <h4 class="text-dark font-weight-light h5 mb-4">
+                                    {{ item.name }}
+                                    <small class="d-block font-weight-bold text-dark mt-1"> 
+                                        {{ item.id }} 
+                                    </small>
+                                </h4>  
+
+                                <button class="btn btn-success" @click.prevent="add"> Agregar </button>
+
+                                <button class="btn btn-light productItem" :data-id="item.id" @click.prevent="verCompatibilidad">
+                                    Ver compatibilidad
+                                </button>
+
+                            </div> 
+                            
+                        </div>
+
+                    </div>
+
+                </div> 
+
+                <!--Compatibilidad-->
+                <div class="col-md-4" v-if="result"> 
+
+                    <div class="bg-dark p-3 rounded text-light position-fixed">
+                                
+                        <h2 class="mb-5 font-weight-normal h4"> 
+                            {{ productSelect }} es compatible con:
+                        </h2>
+        
+                        <div class="row">
+
+                            <div class="col-12" v-for="(item,index) in comp">
+                                <div class="cyan rounded p-2 mb-4">
+                                    <h4 class="text-dark font-weight-light h6 m-0">
+                                        {{ item.name }}
+                                    </h4>   
+                                </div> 
+                            </div> 
+
+                        </div>
+                            
+                        <h3 class="font-weight-normal h4 d-none">
+                            Total: <span>{{ total }}</span>
+                        </h3>
+        
+                    </div>
                 </div> 
             </div> 
 
-            <!--Compatibilidad-->
-            <div class="col-md-4" v-if="result"> 
+        </div>   
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+        <script src="vue.js"></script>
 
-                <div class="bg-dark p-3 rounded text-light position-fixed">
-                            
-                    <h2 class="mb-5 font-weight-normal "> 
-                        {{ productSelect }} es compatible con:
-                    </h2>
-    
-                    <div id="results" class="row" >
+    </body>
 
-                        <div class="col-12" v-for="(item,index) in items">
-                            <div class="cyan rounded p-2 mb-4">
-                                <h4 class="text-dark font-weight-light h6 m-0">{{ item.name }}</h4>   
-                            </div> 
-                        </div> 
-
-                    </div>
-                        
-                    <h3 class="font-weight-normal h4 d-none">
-                        Total: <span>{{ total }}</span>
-                    </h3>
-    
-                </div>
-            </div> 
-        </div> 
-
-    </div>   
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
-    <script src="vue.js"></script>
-
-</body>
 </html>
