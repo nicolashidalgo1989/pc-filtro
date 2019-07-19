@@ -82,7 +82,7 @@ const app = new Vue({
             for( var x= 0; myProducts.length > x; x++){ 
                 this.comp.push(myProducts[x]); 
             };
-            
+
             console.log(myProducts);
 
         },
@@ -92,7 +92,7 @@ const app = new Vue({
             if(!this.items[index].terms){
 
                 this.items[index].terms = true;
-  
+
             } else {
 
                 this.changeDB(index);
@@ -103,24 +103,19 @@ const app = new Vue({
         },
 
         changeDB(index) {
-   
-            this.items[index].id = this.items[index].id;  
-            this.items[index].name = this.items[index].name;
-            // this.items[index].compatibility = this.items[index].compatibility.split(",");
-            // this.items[index].suppliers = this.items[index].suppliers;
-            this.items[index].type = this.items[index].type;
-            this.items[index].color = this.items[index].color;
-            this.items[index].terms = false;
+            
+            let _this =  this.items[index];
+
+            _this.id = _this.id;  
+            _this.name = _this.name;
+            _this.compatibility = _this.compatibility;
+            _this.suppliers = _this.suppliers;
+            _this.type = _this.type;
+            _this.color = _this.color;
+            _this.terms = false;
             
             this.localStorage();
 
-        },
-
-        addSupplier(index) {
-            this.suppliers[index].push({
-                name: "",
-                price: ""
-            });
         },
 
         eliminar(index) {
@@ -160,7 +155,9 @@ const app = new Vue({
         download() {
 
             let myWindow = window.open("");
-            myWindow.document.body.innerHTML = `<code> ${ localStorage.getItem("db") }  </code>`;
+            myWindow.document.body.innerHTML = `
+                <code> ${ localStorage.getItem("db") }  </code>
+            `;
 
         } 
 

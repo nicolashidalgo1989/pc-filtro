@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
 </head>
 
@@ -60,17 +59,16 @@
 
                             <div class="col-sm-8">
 
-                                <div class="form-inline" v-for="supplier in suppliers">
-
-                                    <div class="form-group">
+                                <div class="form-group row" v-for="supplier in suppliers">
                                     
+                                    <div class="col-sm-6">
                                         <input type="text" v-model="supplier.name" class="form-control" @keyup.enter.prevent="addDB" placeholder="Ingresa proveedor"> 
-
-                                        <input type="text" v-model="supplier.price" class="form-control" @keyup.enter.prevent="addDB" placeholder="Ingresa precio">   
-                                    
                                     </div>
-
-                                </div> 
+                                    <div class="col-sm-6">
+                                        <input type="text" v-model="supplier.price" class="form-control" @keyup.enter.prevent="addDB" placeholder="Ingresa precio">  
+                                    </div> 
+                                
+                                </div>
 
                             </div> 
                 
@@ -116,7 +114,9 @@
                     </code>
                 </div>
 
-                <button @click.prevent="download" class="btn btn-primary">Download JSON file</button>
+                <button @click.prevent="download" class="btn btn-primary">
+                    Download JSON file
+                </button>
 
             </div>
 
@@ -127,7 +127,7 @@
                 <table class="table table-dark"> 
 
                     <tr>
-                        <th scope="col">  </th>
+                        <th scope="col"> </th>
                         <th scope="col"> Id </th>
                         <th scope="col"> Nombre </strong> </th>
                         <th scope="col"> Compatibilidad </th>
@@ -167,7 +167,7 @@
                                 
                             </form>
                         
-                            <button class="btn btn-primary" @click.prevent="addSupplier(index)" v-if="item.terms">
+                            <button class="btn btn-primary btn-block" v-if="item.terms">
                                 Agregar proveedor
                             </button>   
 
@@ -180,6 +180,7 @@
                                 <span v-if="!item.terms">Editar</span>  
                                 <span v-else>Aplicar</span>
                             </button> 
+                            <button v-if="item.terms" class="mt-2 btn btn-sm btn-dark" @click.prevent="item.terms = false">Cancelar</button>
                         </td>
                         <td> 
                             <button class="btn btn-sm btn-danger " @click="eliminar(index)"> X </button> 
@@ -193,8 +194,7 @@
                 </button> 
 
             </div> 
-             
-
+              
         </div>
 
     </div>
