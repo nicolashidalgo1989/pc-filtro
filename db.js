@@ -14,7 +14,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "yellow"
+        "color": "yellow",
+        "terms": false
     },            
     {
         "id": "PH310", 
@@ -31,7 +32,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "cyan"
+        "color": "cyan",
+        "terms": false
     },            
     {
         "id": "PZ390X", 
@@ -48,7 +50,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "purple"
+        "color": "purple",
+        "terms": false
     },            
     {
         "id": "PZ390", 
@@ -65,7 +68,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "green"
+        "color": "green",
+        "terms": false
     },            
     {
         "id": "PB450", 
@@ -82,7 +86,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "cyan"
+        "color": "cyan",
+        "terms": false
     },            
     {
         "id": "A320K", 
@@ -99,7 +104,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "cyan"
+        "color": "cyan",
+        "terms": false
     },            
     {
         "id": "X470", 
@@ -116,7 +122,8 @@ var db = [
             }
         ],
         "type": "placa",
-        "color": "cyan"
+        "color": "cyan",
+        "terms": false
     },    
     {
         "id": "2666C", 
@@ -133,7 +140,8 @@ var db = [
             }
         ],
         "type": "memoria",
-        "color": "orange"
+        "color": "orange",
+        "terms": false
     },
     {
         "id": "3000B", 
@@ -150,7 +158,8 @@ var db = [
             }
         ],
         "type": "memoria",
-        "color": "orange"
+        "color": "orange",
+        "terms": false
     },
     {
         "id": "3200P", 
@@ -167,7 +176,8 @@ var db = [
             }
         ],
         "type": "memoria",
-        "color": "orange"
+        "color": "orange",
+        "terms": false
     },
     {
         "id": "3200G", 
@@ -184,7 +194,8 @@ var db = [
             }
         ],
         "type": "memoria",
-        "color": "orange"
+        "color": "orange",
+        "terms": false
     },   
     {
         "id": "IPG5400", 
@@ -202,7 +213,8 @@ var db = [
         ],
         "marca": "intel",
         "type": "procesador",
-        "color": "sky"
+        "color": "sky",
+        "terms": false
     },
     {
         "id": "IC9100F", 
@@ -220,7 +232,8 @@ var db = [
         ],
         "marca": "intel",
         "type": "procesador",
-        "color": "sky"
+        "color": "sky",
+        "terms": false
     },
     {
         "id": "IC9400F", 
@@ -238,7 +251,8 @@ var db = [
         ],
         "marca": "intel",
         "type": "procesador",
-        "color": "sky"
+        "color": "sky",
+        "terms": false
     },
     {
         "id": "IC9700K", 
@@ -256,7 +270,8 @@ var db = [
         ],
         "marca": "intel",
         "type": "procesador",
-        "color": "sky"
+        "color": "sky",
+        "terms": false
     },
     {
         "id": "IC9900K", 
@@ -274,7 +289,8 @@ var db = [
         ],
         "marca": "intel",
         "type": "procesador",
-        "color": "sky"
+        "color": "sky",
+        "terms": false
     }, 
     {
         "id": "AR2200", 
@@ -292,7 +308,8 @@ var db = [
         ],
         "marca": "amd",
         "type": "procesador",
-        "color": "pink"
+        "color": "pink",
+        "terms": false
     },
     {
         "id": "AR2400", 
@@ -310,7 +327,8 @@ var db = [
         ],
         "marca": "amd",
         "type": "procesador",
-        "color": "pink"
+        "color": "pink",
+        "terms": false
     },
     {
         "id": "AR2600", 
@@ -328,7 +346,8 @@ var db = [
         ],
         "marca": "amd",
         "type": "procesador",
-        "color": "pink"
+        "color": "pink",
+        "terms": false
     },
     {
         "id": "AR2700", 
@@ -346,6 +365,7 @@ var db = [
         ],
         "marca": "amd",
         "type": "procesador",
-        "color": "pink"
+        "color": "pink",
+        "terms": false
     }
 ]

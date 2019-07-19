@@ -2,27 +2,20 @@ const app = new Vue({
 
     el: "#app",
 
-    data: {
+    data: { 
 
-        titulo1: "Filtro procesador placa y ram",
-        titulo2: "Administrador",
-
-        id: "",
-        name: "",
-        compatibility: [],
-        suppliers: [{
-            name: "",
-            price: ""
-        }],
-        type: "",
         colors: [ "aqua", "cyan", "purple", "green", "yellow", "sky", "orange", "pink" ],
-        color: '',
-
-        items: [],
-        productSelect: "", 
-        result: false,
+        color: "",
         comp: [],
-        total: 0 
+        compatibility: [],
+        id: "",
+        terms: false,
+        items: [], 
+        name: "",
+        result: false,
+        suppliers: [{ name: "", price: "" }],
+        total: 0,
+        type: ""
 
     },
 
@@ -35,35 +28,29 @@ const app = new Vue({
             });
         },
 
-        agregar() {
+        addDB() {
+  
+            this.items.push({
+                id: this.id,
+                name: this.name,
+                compatibility: this.compatibility.split(","),
+                suppliers: this.suppliers,
+                type: this.type,
+                color: this.color,
+                terms: this.terms
+            });
 
-            if (this.id !== "" && this.name !== "" && this.compatibility !== "" && this.suppliers !== "" && this.type !== "") {
+            this.id = "";
+            this.name = "";
+            this.compatibility = [];
+            this.suppliers = [{ name: "",  price: "" }];
+            this.type = "";
+            this.color= "";
 
-                this.items.push({
-                    id: this.id,
-                    name: this.name,
-                    compatibility: this.compatibility.split(","),
-                    suppliers: this.suppliers,
-                    type: this.type,
-                    color: this.color
-                });
+            this.localStorage(); 
 
-                this.id = "";
-                this.name = "";
-                this.compatibility = [];
-                this.suppliers = [{
-                    name: "",
-                    price: ""
-                }];
-                this.type = "";
-                this.color= ""
-
-                this.localStorage();
-
-            }
-
-        }, 
-
+        },
+        
         add(){
 
             console.log("agregado");
@@ -71,49 +58,69 @@ const app = new Vue({
         },
 
         verCompatibilidad(e) { 
-             
+
+            this.comp = "";
+
             //retornamos json desde localstorage
-            myProducts = JSON.parse(localStorage.getItem("db"));
- 
+            let myProducts = JSON.parse(localStorage.getItem("db"));
+             
             //retornamos valor de atributo data-id del boton clickeado 
             let prodId = e.currentTarget.getAttribute("data-id");
 
             //filtramos productos por su id compatible
-            myProducts = myProducts.filter(({ 
-                compatibility
-            }) => {
-
+            myProducts = myProducts.filter(({compatibility}) => { 
                 return compatibility.includes(prodId);
-
             });
- 
+
+            //mostramos cuadro de compatibilidades
+            this.result = true;
+
             //mostramos nombre del producto clickeado
-            myName = e.currentTarget.parentElement.children[1].innerText; 
+            myName = e.currentTarget.parentElement.children[1].innerText;
+            this.name = myName;
 
-            //mostramos cuadro de compatibilidades
-            this.result = true; 
+            for( var x= 0; myProducts.length > x; x++){ 
+                this.comp.push(myProducts[x]); 
+            };
+            
+            console.log(myProducts);
 
-            //mostramos cuadro de compatibilidades
-            this.productSelect = myName;
-   
-            if(myProducts.length != 0){
-
-                this.comp.push( {
-                    id: myProducts[0].id,
-                    name: myProducts[0].name
-                });
-
-            } 
-
-            localStorage.setItem("comp", this.comp);
-
-            console.log(JSON.stringify(this.comp));
-             
         },
 
-        editar(e) {
-             
-            console.log(e.currentTarget); 
+        editar(index) {
+
+            if(!this.items[index].terms){
+
+                this.items[index].terms = true;
+  
+            } else {
+
+                this.changeDB(index);
+                this.items[index].terms = false;
+
+            }
+
+        },
+
+        changeDB(index) {
+   
+            this.items[index].id = this.items[index].id;  
+            this.items[index].name = this.items[index].name;
+            // this.items[index].compatibility = this.items[index].compatibility.split(",");
+            // this.items[index].suppliers = this.items[index].suppliers;
+            this.items[index].type = this.items[index].type;
+            this.items[index].color = this.items[index].color;
+            this.items[index].terms = false;
+            
+            this.localStorage();
+
+        },
+
+        addSupplier(index) {
+            this.suppliers[index].push({
+                name: "",
+                price: ""
+            });
         },
 
         eliminar(index) {
@@ -124,21 +131,28 @@ const app = new Vue({
 
                 this.items.splice(index, 1);
                 this.localStorage();
+
             }
 
         },
 
-        eliminarTodo(index) {
+        eliminarTodo() {
 
             let dlt = confirm("sure?");
 
             if (dlt) {  
-                localStorage.clear("db");
-                this.localStorage();
+
+                let rly = confirm("really?");
+
+                if(rly){
+                    this.items = '';
+                    this.localStorage();
+                }
+
             }
 
         },
- 
+
         localStorage() {
             localStorage.setItem("db", JSON.stringify(this.items));
         },
@@ -146,11 +160,19 @@ const app = new Vue({
         download() {
 
             let myWindow = window.open("");
-            myWindow.document.write("<code>" +  localStorage.getItem("db") + "</code>");
+            myWindow.document.body.innerHTML = `<code> ${ localStorage.getItem("db") }  </code>`;
 
+        } 
+
+    },
+
+    computed:  {
+
+        isDisabled: function(){
+            return !this.terms;
         }
 
-    },  
+    },
 
     created: function () {
 
@@ -161,7 +183,7 @@ const app = new Vue({
             this.items = [];
 
         } else {
-            
+
             this.items = db;
 
         }

@@ -1,8 +1,8 @@
 document.addEventListener( 'DOMContentLoaded', function(){
-    
+
     let products = document.getElementById('products');
     products.innerHTML = '';
-    
+
     for(let i = 0; db.length > i; i++){ 
 
         products.innerHTML += `
@@ -16,10 +16,10 @@ document.addEventListener( 'DOMContentLoaded', function(){
                     ${db[i].name} <small class="d-block font-weight-bold text-dark mt-1">${db[i].id}</small>
                     </h4>  
                     <button class="btn btn-dark productItem" data-id="${db[i].id}">Ver compatibilidad</button>
-                </div> 
-            </div>   
+                </div>
+            </div>
 
-        ` 
+        `
 
     }
 
@@ -46,11 +46,11 @@ document.addEventListener( 'DOMContentLoaded', function(){
 
         let results = document.getElementById('results');
         results.innerHTML = ''; 
- 
+
         for(let i = 0; db.length > i; i++){
-        
+
             results.innerHTML += `
-    
+
                 <div class="col-12">
                     <div class="${db[i].color} rounded p-2 mb-4">
                         <h4 class="text-dark font-weight-light h6 m-0">
@@ -58,13 +58,13 @@ document.addEventListener( 'DOMContentLoaded', function(){
                         </h4>   
                     </div> 
                 </div>   
-    
+
             `
-    
+
         }
-        
+
     };
-   
+
     document.querySelectorAll('.productItem').forEach((item) => {
 
         let myProducts = db;  
@@ -82,11 +82,11 @@ document.addEventListener( 'DOMContentLoaded', function(){
             });   
 
             if( myProducts.length !== 0 ) {
-                
+
                 insertProducts(myProducts); 
 
             } else {
-                
+
                 results.innerHTML = `
 
                     <div class="col-12">

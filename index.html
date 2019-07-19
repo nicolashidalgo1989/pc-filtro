@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 
-    <head>
+    <head>  
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
         <title>Filtro procesador placa y ram</title>
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
         <link rel="stylesheet" href="main.css">
+
     </head>
 
     <body class="bg-light pb-5"> 
 
         <div id="app" class="container"> 
 
-            <h1 class="h2 font-weight-normal text-dark mt-5"> {{ titulo1 }} </h1> 
+            <h1 class="h2 font-weight-normal text-dark mt-5"> Filtro procesador placa y ram </h1> 
 
             <a href="admin.html" class="btn btn-success my-4"> Admin </a>
 
             <div class="row">
 
                 <!--Productos-->
+                
                 <div class="col-md-8"> 
 
                     <h2 class="font-weight-normal text-dark mb-3">Productos</h2> 
@@ -57,18 +63,19 @@
                 </div> 
 
                 <!--Compatibilidad-->
-                <div class="col-md-4" v-if="result"> 
+                
+                <div class="col-md-4 offset-md-7 position-fixed mt-5 pt-2" v-if="result"> 
 
-                    <div class="bg-dark p-3 rounded text-light position-fixed">
+                    <div class="bg-dark p-3 rounded text-light">
                                 
                         <h2 class="mb-5 font-weight-normal h4"> 
-                            {{ productSelect }} es compatible con:
+                            {{ name }} es compatible con:
                         </h2>
         
                         <div class="row">
 
-                            <div class="col-12" v-for="(item,index) in comp">
-                                <div class="cyan rounded p-2 mb-4">
+                            <div class="col-12" v-for="(item, index) in comp">
+                                <div :class="item.color" class="rounded p-2 mb-4">
                                     <h4 class="text-dark font-weight-light h6 m-0">
                                         {{ item.name }}
                                     </h4>   

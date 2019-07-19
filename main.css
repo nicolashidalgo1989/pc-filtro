@@ -5,5 +5,18 @@
 .green { background-color: #c7e8ac; }
 .purple { background-color: #b391b5; } 
 .yellow { background-color: #ffeca9; }
-
-.jsonResult{max-height:277px;overflow:Scroll;}
+.jsonResult{max-height:277px;overflow:scroll;}
+.form-control:disabled::-webkit-input-placeholder { color: white; }  /* WebKit, Blink, Edge */
+.form-control:disabled:-moz-placeholder { color: white; }  /* Mozilla Firefox 4 to 18 */
+.form-control:disabled::-moz-placeholder { color: white; }  /* Mozilla Firefox 19+ */
+.form-control:disabled:-ms-input-placeholder { color: white; }  /* Internet Explorer 10-11 */
+.form-control:disabled::-ms-input-placeholder { color: white; }  /* Microsoft Edge */
+.form-control:disabled{
+    border: none;
+    background: transparent;
+    color: #fff!important;
+    padding:0;
+} 
+.overflow-hidden{
+    overflow: hidden
+}
