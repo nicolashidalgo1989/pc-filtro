@@ -19,9 +19,26 @@
 
         <div id="app" class="container"> 
 
-            <h1 class="h2 font-weight-normal text-dark mt-5"> Filtro procesador placa y ram </h1> 
+            <div class="row">
+                    
+                <div class="col-lg-4">
 
-            <a href="admin.html" class="btn btn-success my-4"> Admin </a>
+                    <h1 class="h2 font-weight-normal text-dark mt-5">
+                        Arma tu pc
+                        <small class="d-block">Filtro procesador placa y ram</small>
+                    </h1> 
+
+                    <a href="admin.html" class="btn btn-success my-4"> Admin </a>
+ 
+                    <input type="text" class="form-control mb-4" placeholder="Buscar..." v-model="name">
+                    
+                    <select name="" id="" v-model="type">
+                        <option value="" v-for="(type, index) in searchItems"></option>
+                    </select> 
+
+                </div>
+
+            </div>
 
             <div class="row">
 
@@ -29,11 +46,13 @@
                 
                 <div class="col-md-8"> 
 
-                    <h2 class="font-weight-normal text-dark mb-3">Productos</h2> 
+                    <h2 class="font-weight-normal text-dark mb-3">
+                        Productos ( {{ items.length }} )
+                    </h2> 
 
                     <div class="row">
 
-                        <div class="col-sm-6" v-for="(item,index) in items">
+                        <div class="col-sm-6" v-for="(item,index) in searchItems">
 
                             <div :class="item.color" class="rounded p-4 mb-4">
                                 
@@ -64,7 +83,7 @@
 
                 <!--Compatibilidad-->
                 
-                <div class="col-md-4 offset-md-7 position-fixed mt-5 pt-2" v-if="result"> 
+                <div class="col-md-4 mt-5 pt-2" v-if="result"> 
 
                     <div class="bg-dark p-3 rounded text-light">
                                 

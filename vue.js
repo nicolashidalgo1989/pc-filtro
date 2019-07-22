@@ -33,7 +33,7 @@ const app = new Vue({
             this.items.push({
                 id: this.id,
                 name: this.name,
-                compatibility: this.compatibility.split(","),
+                compatibility: this.compatibility,
                 suppliers: this.suppliers,
                 type: this.type,
                 color: this.color,
@@ -50,7 +50,7 @@ const app = new Vue({
             this.localStorage(); 
 
         },
-        
+
         add(){
 
             console.log("agregado");
@@ -59,7 +59,7 @@ const app = new Vue({
 
         verCompatibilidad(e) { 
 
-            this.comp = "";
+            this.comp = [];
 
             //retornamos json desde localstorage
             let myProducts = JSON.parse(localStorage.getItem("db"));
@@ -167,6 +167,10 @@ const app = new Vue({
 
         isDisabled: function(){
             return !this.terms;
+        },
+
+        searchItems : function(){  
+            return this.items.filter( (prod)  => prod.name.includes( this.name ));
         }
 
     },
@@ -182,6 +186,8 @@ const app = new Vue({
         } else {
 
             this.items = db;
+            //const () = this.items;
+            console.log(  this.name );
 
         }
 
