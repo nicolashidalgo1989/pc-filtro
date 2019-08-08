@@ -12,24 +12,28 @@ const app = new Vue({
         terms: false,
         items: [], 
         name: "",
+        nameSearch: "",
         result: false,
-        suppliers: [{ name: "", price: "" }],
+        suppliers: [{ name: "", price: "" }], 
         total: 0,
-        type: ""
+        type: "",
+        types: [ 'fuente', 'memoria', 'placa', 'procesador', 'tarjeta' ]
 
     },
 
     methods: {
 
         agregarSupplier() {
+
             this.suppliers.push({
                 name: "",
                 price: ""
             });
-        },
+
+        }, 
 
         addDB() {
-  
+
             this.items.push({
                 id: this.id,
                 name: this.name,
@@ -47,7 +51,7 @@ const app = new Vue({
             this.type = "";
             this.color= "";
 
-            this.localStorage(); 
+            this.localStorage();
 
         },
 
@@ -69,7 +73,9 @@ const app = new Vue({
 
             //filtramos productos por su id compatible
             myProducts = myProducts.filter(({compatibility}) => { 
+
                 return compatibility.includes(prodId);
+
             });
 
             //mostramos cuadro de compatibilidades
@@ -79,11 +85,11 @@ const app = new Vue({
             myName = e.currentTarget.parentElement.children[1].innerText;
             this.name = myName;
 
-            for( var x= 0; myProducts.length > x; x++){ 
-                this.comp.push(myProducts[x]); 
-            };
+            this.comp = myProducts.map( (x) => x );
 
-            console.log(myProducts);
+            // for( var x= 0; myProducts.length > x; x++){ 
+            //     this.comp.push(myProducts[x]); 
+            // }; 
 
         },
 
@@ -103,7 +109,7 @@ const app = new Vue({
         },
 
         changeDB(index) {
-            
+
             let _this =  this.items[index];
 
             _this.id = _this.id;  
@@ -113,7 +119,7 @@ const app = new Vue({
             _this.type = _this.type;
             _this.color = _this.color;
             _this.terms = false;
-            
+
             this.localStorage();
 
         },
@@ -170,7 +176,9 @@ const app = new Vue({
         },
 
         searchItems : function(){  
-            return this.items.filter( (prod)  => prod.name.includes( this.name ));
+            return this.items.filter( (prod)  => {
+                return prod.name.includes(this.nameSearch);
+            });
         }
 
     },
@@ -186,8 +194,7 @@ const app = new Vue({
         } else {
 
             this.items = db;
-            //const () = this.items;
-            console.log(  this.name );
+            //const () = this.items; 
 
         }
 

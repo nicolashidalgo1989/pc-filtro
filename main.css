@@ -5,7 +5,7 @@
 .green { background-color: #c7e8ac; }
 .purple { background-color: #b391b5; } 
 .yellow { background-color: #ffeca9; }
-.jsonResult{max-height:347px;overflow:scroll;}
+.jsonResult{max-height:347px;overflow:scroll;border:white 1px dotted!important;}
 .form-control:disabled::-webkit-input-placeholder { color: white; }
 .form-control:disabled:-moz-placeholder { color: white; }
 .form-control:disabled::-moz-placeholder { color: white; }

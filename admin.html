@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="main.css">
 </head>
 
-<body class="bg-light pb-5">
+<body class="bg-dark pb-5">
 
-    <div id="app" class="container mt-5">
+    <div id="app" class="container-fluid mt-5">
+ 
+        <h1 class="h2 font-weight-normal text-light mt-5">
+            Arma tu pc
+            <small class="d-block">Administrador</small>
+        </h1> 
 
-        <h3 class="h2 font-weight-normal text-dark mt-5">
-            Administrador
-        </h3>
 
         <a href="index.html" class="btn btn-success my-4">
             &lt; Volver a Index
@@ -157,7 +159,7 @@
                                 <div class="col-sm-6">
                                     <input class="form-control" type="text" v-model="sup.name" :disabled="!item.terms" @keyup.enter.prevent="editar(index)"> 
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <input class="form-control" type="text" v-model="sup.price" :disabled="!item.terms" @keyup.enter.prevent="editar(index)">
                                 </div>
